@@ -89,5 +89,46 @@ static_configs:
 - targets: ['hotel-booking-app:8080']
 ```
 
+## 4. Grafana Setup
 
+Grafana requires no special config for Prometheus—just configure a Prometheus data
+source pointing to http://prometheus:9090.
+
+## 5. Docker Compose Setup
+
+✅ docker-compose.yml
+
+```yaml
+CopyEdit
+version: "3.8"
+services:
+hotel-booking-app:
+build: .
+container_name: hotel-booking-app
+ports:
+- "8080:8080"
+networks:
+- monitoring
+prometheus:
+image: prom/prometheus:latest
+volumes:
+- ./prometheus.yml:/etc/prometheus/prometheus.yml
+ports:
+- "9090:9090"
+networks:
+- monitoring
+grafana:
+image: grafana/grafana:latest
+ports:
+- "3000:3000"
+networks:
+- monitoring
+depends_on:
+- prometheus
+environment:
+- GF_SECURITY_ADMIN_PASSWORD=admin
+networks:
+monitoring:
+driver: bridge
+```
 
