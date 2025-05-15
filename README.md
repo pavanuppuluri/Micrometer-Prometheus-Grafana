@@ -62,4 +62,15 @@ public class BookingController {
 }
 ```
 
+## 2. Dockerize Spring Boot App
+✅ Dockerfile
+
+```Dockerfile
+CopyEdit
+FROM openjdk:17-jdk-slim
+ARG JAR_FILE=target/hotel-booking-app.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+```
+
 
