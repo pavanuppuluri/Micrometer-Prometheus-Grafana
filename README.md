@@ -7,7 +7,7 @@ HotelBookingApp as an example. This includes configuration files, dependencies, 
 
 ✅ pom.xml (Micrometer + Actuator)
 
-```
+```xml
 <dependencies>
   <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -25,7 +25,7 @@ HotelBookingApp as an example. This includes configuration files, dependencies, 
 ```
 ✅ application.yml
 
-```
+```yml
 management:
   endpoints:
     web:
@@ -63,6 +63,7 @@ public class BookingController {
 ```
 
 ## 2. Dockerize Spring Boot App
+
 ✅ Dockerfile
 
 ```Dockerfile
@@ -72,5 +73,21 @@ ARG JAR_FILE=target/hotel-booking-app.jar
 COPY ${JAR_FILE} app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 ```
+
+## 3. Prometheus Config
+
+✅ prometheus.yml
+
+```yaml
+global:
+scrape_interval: 15s
+evaluation_interval: 15s
+scrape_configs:
+- job_name: 'hotel-booking-app'
+metrics_path: '/actuator/prometheus'
+static_configs:
+- targets: ['hotel-booking-app:8080']
+```
+
 
 
