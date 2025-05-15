@@ -132,3 +132,24 @@ monitoring:
 driver: bridge
 ```
 
+## Run the Setup
+1. Build your Spring Boot app:
+```bash
+mvn clean package
+```
+
+2. Build & run the Docker setup:
+```bash
+docker-compose up --build
+```
+
+3. Access:
+- **App:** [http://localhost:8080/book](http://localhost:8080/book)  
+- **Prometheus:** [http://localhost:9090](http://localhost:9090)  
+- **Grafana:** [http://localhost:3000](http://localhost:3000) (login: `admin/admin`)
+
+
+5. In Grafana:
+- **Add Prometheus as a data source:** `http://prometheus:9090`  
+- **Create dashboards or import existing ones** for Micrometer metrics.
+
